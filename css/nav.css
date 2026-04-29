@@ -45,25 +45,14 @@
   flex-shrink: 0;
 }
 
-.nav-logo-accent {
-  width: 12px;
-  height: 12px;
-  background-color: var(--color-primary);
-  border-radius: var(--radius-sm);
-  flex-shrink: 0;
+.nav-logo-img {
+  height: 40px;
+  width: auto;
+  display: block;
 }
 
-.nav-logo-text {
-  font-family: var(--font-heading);
-  font-weight: 800;
-  font-size: 1.1rem;
-  color: var(--color-text);
-  line-height: 1;
-  transition: color var(--transition-fast);
-}
-
-.nav-logo:hover .nav-logo-text {
-  color: var(--color-primary);
+.footer-brand .nav-logo-img {
+  height: 36px;
 }
 
 /* ── Nav links ── */
