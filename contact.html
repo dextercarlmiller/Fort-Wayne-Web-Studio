@@ -169,13 +169,15 @@
           <!-- Inquiry form -->
           <form
             id="inquiry-form"
-            method="POST"
-            data-static-form-name="project-inquiry"
             novalidate
             aria-label="Project inquiry form"
           >
-            <!-- Honeypot — spam protection -->
-            <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <!-- Web3Forms — replace value with your access key from web3forms.com -->
+            <input type="hidden" name="access_key" value="dfebd958-6c91-4c8d-9361-c81cbe5f1e5d">
+            <input type="hidden" name="subject" value="New Project Inquiry — Fort Wayne Web Studio">
+            <input type="hidden" name="from_name" value="Fort Wayne Web Studio Contact Form">
+            <!-- Spam protection -->
+            <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" aria-hidden="true">
 
             <div class="form-row">
               <div class="form-group">
@@ -450,22 +452,30 @@
 
       if (!valid) return;
 
-      /* Honeypot check */
-      const gotcha = form.querySelector('input[name="_gotcha"]');
-      if (gotcha && gotcha.value) return;
+      /* Botcheck — spam protection */
+      const botcheck = form.querySelector('input[name="botcheck"]');
+      if (botcheck && botcheck.checked) return;
 
-      /* Submit via fetch (Cloudflare Pages Forms) */
+      /* Submit via Web3Forms */
+      const submitBtn = form.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+
       const data = new FormData(form);
-      fetch('/', { method: 'POST', body: data })
-        .then(() => {
-          form.style.display = 'none';
-          success.classList.add('visible');
-          success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      fetch('https://api.web3forms.com/submit', { method: 'POST', body: data })
+        .then(function (res) { return res.json(); })
+        .then(function (json) {
+          if (json.success) {
+            form.style.display = 'none';
+            success.classList.add('visible');
+            success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          } else {
+            submitBtn.disabled = false;
+            alert('Something went wrong. Please email us directly at fortwaynebusinesses@gmail.com');
+          }
         })
-        .catch(() => {
-          /* Fallback: show success anyway (form may still submit via native POST) */
-          form.style.display = 'none';
-          success.classList.add('visible');
+        .catch(function () {
+          submitBtn.disabled = false;
+          alert('Something went wrong. Please email us directly at fortwaynebusinesses@gmail.com');
         });
     });
 
