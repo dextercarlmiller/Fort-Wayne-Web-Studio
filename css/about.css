@@ -9,9 +9,9 @@
 
 .about-story-grid {
   display: grid;
-  grid-template-columns: 1fr 1.4fr;
+  grid-template-columns: 1fr;
   gap: var(--space-8);
-  align-items: center;
+  max-width: 740px;
 }
 
 .about-photo {
@@ -204,18 +204,61 @@
   color: var(--color-primary);
 }
 
+/* ── CTA ── */
+.cta-section {
+  background-color: var(--color-primary);
+  padding: var(--space-12) 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: var(--space-8);
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.cta-section::after {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  left: -40px;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.cta-section h2 {
+  color: #fff;
+  font-size: clamp(1.8rem, 3vw, 3rem);
+  margin-bottom: var(--space-2);
+  position: relative;
+  z-index: 2;
+}
+
+.cta-section p {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: var(--text-md);
+  margin-bottom: var(--space-5);
+  position: relative;
+  z-index: 2;
+}
+
+.cta-section .btn {
+  position: relative;
+  z-index: 2;
+}
+
 /* ── Responsive ── */
 @media (max-width: 768px) {
-  .about-story-grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-5);
-  }
-
-  .about-photo-placeholder {
-    aspect-ratio: 3/2;
-    max-height: 280px;
-  }
-
   .values-grid {
     grid-template-columns: 1fr;
   }
